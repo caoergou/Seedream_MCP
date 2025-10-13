@@ -5,7 +5,7 @@
 
 import asyncio
 import logging
-from typing import Optional, Dict, Any, List, Union
+from typing import Optional, Dict, Any, List
 from pathlib import Path
 from datetime import datetime
 
