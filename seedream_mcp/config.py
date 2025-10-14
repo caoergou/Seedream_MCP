@@ -224,12 +224,6 @@ def get_global_config() -> SeedreamConfig:
     return _global_config
 
 
-# 为了向后兼容，保留get_config作为别名
-def get_config() -> SeedreamConfig:
-    """获取全局配置实例（别名，建议使用get_global_config）"""
-    return get_global_config()
-
-
 def set_config(config: SeedreamConfig):
     """设置全局配置实例"""
     global _global_config
