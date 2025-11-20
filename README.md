@@ -158,6 +158,28 @@ uv sync --dev
 uv run python -m seedream_mcp.server --api-key your_key
 ```
 
+### 客户端 API 使用（高级）
+```python
+import asyncio
+from seedream_mcp import SeedreamClient, SeedreamConfig
+
+async def demo():
+    # 客户端方法（不包含 auto_save）
+    config = SeedreamConfig(api_key="your_key")
+    async with SeedreamClient(config) as client:
+        result = await client.text_to_image(
+            prompt="一只可爱的小猫咪",
+            size="2K",
+            watermark=False
+        )
+        print(f"图像URL: {result['data'][0]['url']}")
+
+# MCP 工具方法（包含 auto_save）
+# 通过 Claude Desktop 或 MCP 协议调用，支持完整的参数
+```
+
+**注意**: `auto_save` 等高级功能是 MCP 工具层面的，客户端 API 提供基础功能。
+
 ### 发布新版本
 ```bash
 git tag v1.1.0
