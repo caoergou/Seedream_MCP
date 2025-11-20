@@ -7,54 +7,55 @@
 
 基于火山引擎 Seedream 4.0 API 的 MCP 工具，支持 AI 图像生成。
 
-## ⚡ 快速安装
+## ⚡ 极简启动
 
-### uvx 安装（推荐）
+### 直接启动（无需配置文件）
 ```bash
-uvx run seedream-mcp
+# 最简单的方式 - 直接传递 API 密钥
+uvx run seedream-mcp --api-key your_api_key_here
+
+# 完整配置
+uvx run seedream-mcp \
+  --api-key your_key \
+  --default-size 4K \
+  --log-level DEBUG
 ```
 
-### Git 仓库安装
+### 其他启动方式
 ```bash
-uvx run git+https://github.com/caoergou/Seedream_MCP
+# Git 仓库安装
+uvx run git+https://github.com/caoergou/Seedream_MCP \
+  --api-key your_key
+
+# Docker 运行
+docker run -e ARK_API_KEY=your_key ghcr.io/caoergou/seedream-mcp
+
+# 本地运行
+python -m seedream_mcp.server --api-key your_key
 ```
 
-### Docker 安装
-```bash
-# 直接运行
-docker run -e ARK_API_KEY=your_api_key_here ghcr.io/caoergou/seedream-mcp
-
-# Docker Compose
-curl -O https://raw.githubusercontent.com/caoergou/Seedream_MCP/main/docker-compose.yml
-echo "ARK_API_KEY=your_api_key_here" > .env
-docker-compose up -d
-```
-
-## 🎯 快速开始
+## 🎯 一分钟上手
 
 ### 1. 获取 API 密钥
 访问 [火山引擎控制台](https://console.volcengine.com/) → API 密钥管理 → 创建密钥
 
-### 2. 配置环境变量
-创建 `.env` 文件：
+### 2. 直接运行
 ```bash
-ARK_API_KEY=your_api_key_here
+# 复制你的 API 密钥，直接运行
+uvx run seedream-mcp --api-key paste_your_key_here
 ```
 
-### 3. 运行 MCP 服务器
-```bash
-uvx run seedream-mcp
-```
-
-## 🔧 Claude Desktop 配置
-
+### 3. 配置 Claude Desktop
 在 `claude_desktop_config.json` 中添加：
 ```json
 {
   "mcpServers": {
     "seedream": {
       "command": "uvx",
-      "args": ["seedream-mcp"]
+      "args": [
+        "seedream-mcp",
+        "--api-key", "your_api_key_here"
+      ]
     }
   }
 }
@@ -79,18 +80,39 @@ uvx run seedream-mcp
 我：融合这三张图片的艺术风格 [上传多张图片]
 ```
 
-## ⚙️ 环境配置
+## ⚙️ 启动参数
 
-### 必需配置
 ```bash
-ARK_API_KEY=your_api_key_here
+seedream-mcp --help
+
+# 核心参数
+--api-key TEXT        # 火山引擎 API 密钥（必需）
+--config-file PATH    # 配置文件路径（可选）
+
+# 图像设置
+--default-size [1K|2K|4K]  # 默认图像尺寸 (默认: 2K)
+--watermark                 # 启用默认水印
+--model-id TEXT             # 模型 ID
+
+# 调试设置
+--log-level [DEBUG|INFO|WARNING|ERROR]  # 日志级别
+--base-url TEXT                       # API 基础 URL
 ```
 
-### 可选配置
+### 常用启动命令
+
 ```bash
-SEEDREAM_DEFAULT_SIZE=2K          # 图像尺寸：1K/2K/4K
-SEEDREAM_AUTO_SAVE_ENABLED=true   # 自动保存图片
-LOG_LEVEL=INFO                    # 日志级别
+# 基础使用
+uvx run seedream-mcp --api-key your_key
+
+# 高质量图像
+uvx run seedream-mcp --api-key your_key --default-size 4K
+
+# 启用水印
+uvx run seedream-mcp --api-key your_key --watermark
+
+# 调试模式
+uvx run seedream-mcp --api-key your_key --log-level DEBUG
 ```
 
 ## 🛠️ 可用工具
@@ -102,17 +124,29 @@ LOG_LEVEL=INFO                    # 日志级别
 
 ## 🆘 常见问题
 
+### Q: 如何获取 API 密钥？
+A: 访问 [火山引擎控制台](https://console.volcengine.com/) 创建密钥
+
 ### Q: uvx 命令不存在？
 A: 安装 uv：
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-### Q: 获取 API 密钥？
-A: 访问 [火山引擎控制台](https://console.volcengine.com/) 创建密钥
-
 ### Q: 图片链接过期？
-A: 启用自动保存功能，图片会保存到 `seedream_images/` 目录
+A: 自动保存功能会将图片保存到 `seedream_images/` 目录
+
+### Q: 如何设置默认配置？
+A: 创建配置文件：
+```bash
+# config.env
+ARK_API_KEY=your_key
+SEEDREAM_DEFAULT_SIZE=4K
+LOG_LEVEL=DEBUG
+
+# 使用配置文件
+uvx run seedream-mcp --config-file config.env
+```
 
 ## 🧪 开发者
 
@@ -121,15 +155,13 @@ A: 启用自动保存功能，图片会保存到 `seedream_images/` 目录
 git clone https://github.com/caoergou/Seedream_MCP
 cd Seedream_MCP
 uv sync --dev
-uv run python -m seedream_mcp.server
+uv run python -m seedream_mcp.server --api-key your_key
 ```
 
 ### 发布新版本
 ```bash
-# 更新版本号
 git tag v1.1.0
 git push origin v1.1.0
-# GitHub Actions 自动发布
 ```
 
 ## 📄 许可证
