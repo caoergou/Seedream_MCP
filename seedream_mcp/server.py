@@ -217,5 +217,20 @@ async def main():
     await server.run()
 
 
+def cli_main():
+    """命令行入口点
+
+    提供同步的命令行入口点，用于 console_scripts。
+    """
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\n服务器已停止")
+    except Exception as e:
+        print(f"服务器启动失败: {e}")
+        return 1
+    return 0
+
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    exit(cli_main())

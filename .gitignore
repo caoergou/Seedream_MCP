@@ -101,8 +101,19 @@ ipython_config.py
 # pipenv
 #Pipfile.lock
 
+# poetry
+#poetry.lock
+
+# pdm
+#pdm.lock
+.pdm.toml
+
 # PEP 582
 __pypackages__/
+
+# uv
+.uv/
+uv.lock
 
 # Celery 相关
 celerybeat-schedule
@@ -190,6 +201,7 @@ temp/
 
 # 生成的图片和输出
 images/
+seedream_images/
 
 # 项目构建产物
 seedream_mcp.egg-info/
