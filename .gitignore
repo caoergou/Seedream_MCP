@@ -113,7 +113,6 @@ __pypackages__/
 
 # uv
 .uv/
-uv.lock
 
 # Celery 相关
 celerybeat-schedule
