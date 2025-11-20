@@ -42,6 +42,9 @@ ENTRYPOINT ["python", "-m", "seedream_mcp.server"]
 CMD ["--help"]
 
 # 添加标签
-LABEL maintainer="Seedream MCP Team" \
+LABEL maintainer="Eric Cao <itsericsmail@gmail.com>" \
       version="1.0.0" \
-      description="Seedream 4.0 MCP Server - AI 图像生成工具"
+      description="Seedream 4.0 MCP Server - AI 图像生成工具" \
+      org.opencontainers.image.source="https://github.com/caoergou/Seedream_MCP" \
+      org.opencontainers.image.description="基于火山引擎 Seedream 4.0 API 的 MCP 工具，支持 AI 图像生成" \
+      org.opencontainers.image.licenses="MIT"

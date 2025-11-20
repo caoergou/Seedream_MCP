@@ -26,7 +26,7 @@ uvx run git+https://github.com/caoergou/Seedream_MCP
 
 ```bash
 # 直接运行
-docker run -e ARK_API_KEY=your_api_key_here caoergou/seedream-mcp
+docker run -e ARK_API_KEY=your_api_key_here ghcr.io/caoergou/seedream-mcp
 
 # 使用 Docker Compose（推荐）
 curl -O https://raw.githubusercontent.com/caoergou/Seedream_MCP/main/docker-compose.yml
@@ -247,6 +247,11 @@ uvx cache clean
 uvx cache info
 ```
 
+### Q: Docker 镜像在哪里？
+Docker 镜像托管在 **GitHub Container Registry (GHCR)**：
+- 仓库地址：`ghcr.io/caoergou/seedream-mcp`
+- 拉取命令：`docker pull ghcr.io/caoergou/seedream-mcp`
+
 ## 🚀 高级用法
 
 ### 指定 Python 版本
@@ -319,6 +324,7 @@ git push origin v1.1.0
 - [火山引擎](https://www.volcengine.com/) - 提供强大的 Seedream 4.0 AI 绘图服务
 - [Astral](https://astral.sh/) - 开发现代化的 uv/uvx 工具
 - [Anthropic](https://anthropic.com/) - 开创 MCP 协议标准
+- [原项目仓库](https://github.com/tengmmvp/Seedream_MCP) - 感谢 @tengmmvp 提供的初始代码基础和灵感
 
 ---
 

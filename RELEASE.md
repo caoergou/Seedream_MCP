@@ -78,14 +78,10 @@ git push origin v1.1.0
    - Name: `PYPI_API_TOKEN`
    - Value: 你的 PyPI API token
 
-### Docker Hub Credentials（可选）
-1. 访问 [Docker Hub](https://hub.docker.com/)
-2. 创建 Access Token
-3. 在 GitHub 仓库设置中添加：
-   - Name: `DOCKER_USERNAME`
-   - Value: 你的 Docker Hub 用户名
-   - Name: `DOCKER_PASSWORD`
-   - Value: 你的 Docker Hub Access Token
+### GitHub Container Registry
+- **自动认证**：使用 `GITHUB_TOKEN` 自动认证
+- **无需额外配置**：GitHub Actions 自动处理 GHCR 权限
+- **仓库地址**：`ghcr.io/caoergou/seedream-mcp`
 
 ## 📦 发布产物
 
@@ -103,13 +99,16 @@ pip install seedream-mcp
 pip install seedream-mcp==1.1.0
 ```
 
-### Docker 镜像
+### Docker 镜像（GitHub Container Registry）
 ```bash
 # 拉取最新版本
-docker pull caoergou/seedream-mcp:latest
+docker pull ghcr.io/caoergou/seedream-mcp:latest
 
 # 拉取特定版本
-docker pull caoergou/seedream-mcp:v1.1.0
+docker pull ghcr.io/caoergou/seedream-mcp:v1.1.0
+
+# 拉取语义版本标签
+docker pull ghcr.io/caoergou/seedream-mcp:v1.1
 
 # 使用 Docker Compose
 curl -O https://raw.githubusercontent.com/caoergou/Seedream_MCP/main/docker-compose.yml
@@ -181,9 +180,10 @@ docker-compose up -d
    - 查看下载统计
    - 监控版本使用情况
 
-3. **Docker Hub**
-   - 查看镜像拉取次数
-   - 监控用户反馈
+3. **GitHub Container Registry**
+   - 查看 [Packages 页面](https://github.com/caoergou/Seedream_MCP/pkgs/container/seedream-mcp)
+   - 监控镜像拉取次数
+   - 查看使用统计
 
 ## 🆘 常见问题
 
@@ -197,7 +197,7 @@ A: 检查 GitHub Actions 日志，确认：
 A: 立即联系平台支持：
 - PyPI: support@pypi.org
 - GitHub: 删除 Release 和标签
-- Docker Hub: 删除镜像或重新推送
+- GitHub Container Registry: 删除包版本
 
 ### Q: 如何手动发布？
 A: 本地构建和发布：
@@ -209,10 +209,10 @@ uv build --wheel --sdist
 uv publish
 
 # 构建 Docker 镜像
-docker build -t caoergou/seedream-mcp:v1.1.0 .
-docker push caoergou/seedream-mcp:v1.1.0
+docker build -t ghcr.io/caoergou/seedream-mcp:v1.1.0 .
+docker push ghcr.io/caoergou/seedream-mcp:v1.1.0
 ```
 
 ---
 
-💡 **提示**: 首次发布需要配置 PyPI 和 Docker Hub 的认证信息。建议先在测试仓库验证流程无误后再进行正式发布。
+💡 **提示**: 首次发布需要配置 PyPI 的认证信息。GitHub Container Registry 会自动使用 GITHUB_TOKEN 认证。建议先在测试仓库验证流程无误后再进行正式发布。
